@@ -12,10 +12,10 @@ export interface IUser extends Document{
 
 const UserSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String },
-  name: { type: String, required: true },
-  role: { type: String, enum: ['student', 'admin'], default: 'student' },
-  googleId: { type: String },
+    password: { type: String },
+    name: { type: String, required: true },
+    role: { type: String, enum: ['student', 'admin'], default: 'student' },
+    googleId: { type: String },
 }, { timestamps: true });
 
 
