@@ -38,7 +38,24 @@ export const login= async(req:Request,res:Response)=>{
         const isMatch =await  bcrypt.compare(password,user.password);
         if(!isMatch) return res.status(400).json({message:'Invalid credentials'});
          const token = generateToken({id:user._id,role:user.role});
-        res.status(200).json({token,user:{id:user._id,name:user.name,email:user.email,role:user.role}})
+        res
+  .cookie("accessToken", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax", // 'strict' or 'none' (CORS) as needed
+    maxAge: 15 * 60 * 1000, // 15 min
+  })
+  .status(200)
+  .json({
+    message: "Login successful",
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  });
+
     }
     catch(err){
         res.status(500).json({message:'Server error X login'});
