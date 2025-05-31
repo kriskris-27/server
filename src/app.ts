@@ -6,6 +6,7 @@ import passport from "passport";
 import './config/passport';
 
 import authRoutes from './routes/authRoutes';
+import aiRoutes from './routes/aiRoutes';
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use(passport.initialize());
 
 
 app.use('/api/auth',authRoutes)
+app.use('/api/ai', aiRoutes);
+
 
 app.get("/", (req,res)=>{
  res.send("Learning platform API is livee")
