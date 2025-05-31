@@ -1,8 +1,8 @@
 import  express, { RequestHandler }  from 'express';
 import passport from 'passport';
-import { signup,login, getMe, createAdmin } from '../controllers/authController';
+import { signup,login, getMe } from '../controllers/authController';
 import { generateToken } from '../utils/jwt';
-import { authenticateUser, authorizeRoles } from '../middleware/authMiddleware';
+import { authenticateUser } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
@@ -31,11 +31,5 @@ router.get('/google/callback',
     }
 );
 
-// Admin only routes
-router.post('/create-admin', 
-    authenticateUser as RequestHandler,
-    authorizeRoles('admin') as RequestHandler,
-    createAdmin as RequestHandler
-);
 
 export default router;
