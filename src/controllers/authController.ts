@@ -29,38 +29,38 @@ export const signup = async(req:Request , res:Response)=>{
     }
 };
 
-export const login= async(req:Request,res:Response)=>{
-    const {email,password} = req.body;
-    try{
-        const user = await User.findOne({email});
-        if(!user || !user.password) return res.status(400).json({message:'Invalid credentials'})
-        
-        const isMatch =await  bcrypt.compare(password,user.password);
-        if(!isMatch) return res.status(400).json({message:'Invalid credentials'});
-         const token = generateToken({id:user._id,role:user.role});
-        res
-  .cookie("accessToken", token, {
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax", // 'strict' or 'none' (CORS) as needed
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 15 min
-  })
-  .status(200)
-  .json({
-    message: "Login successful",
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    },
-  }).redirect("http://localhost:5173/oauth-success");
+export const login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user || !user.password) return res.status(400).json({ message: 'Invalid credentials' });
 
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+        const token = generateToken({ id: user._id, role: user.role }, '7d'); // Match cookie expiration
+
+        // Set cookie and send response
+        res.cookie("accessToken", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        });
+
+        res.status(200).json({
+            message: "Login successful",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            }
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error X login' });
     }
-    catch(err){
-        res.status(500).json({message:'Server error X login'});
-    }
-}
+};
 
 export const logout = async(req:Request , res:Response) =>{
     try{
