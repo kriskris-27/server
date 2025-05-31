@@ -1,6 +1,6 @@
 import  express, { RequestHandler }  from 'express';
 import passport from 'passport';
-import { signup,login, getMe } from '../controllers/authController';
+import { signup,login, getMe, logout } from '../controllers/authController';
 import { generateToken } from '../utils/jwt';
 import { authenticateUser } from '../middleware/authMiddleware';
 
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/signup', signup as RequestHandler);
 router.post('/login', login as RequestHandler);
+router.post('/logout', logout as unknown as RequestHandler)
 
 router.get('/me', authenticateUser as RequestHandler, getMe)
 

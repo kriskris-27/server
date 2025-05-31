@@ -62,7 +62,19 @@ export const login= async(req:Request,res:Response)=>{
     }
 }
 
+export const logout = async(req:Request , res:Response) =>{
+    try{
+        res.clearCookie("accessToken",{
+            httpOnly:true,
+            secure:process.env.NODE_ENV === "production",
+            sameSite:process.env.NODE_ENV ==="production" ? "none" : "lax"
+        })
 
+        return res.status(200).json({message : "Logged out successfully"})
+    }catch(err){
+        return res.status(500).json({message:"Logout failed"})
+    }
+}
 
 export const getMe = async (req: Request, res: Response): Promise<void> => {
   try {
