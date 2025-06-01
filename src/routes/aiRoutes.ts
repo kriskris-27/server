@@ -1,8 +1,13 @@
-import express, { RequestHandler } from "express";
-import {structureDoc} from '../controllers/aiController'
+import express, { RequestHandler } from 'express';
+import { structureDoc, saveDoc, getUserDocs, getDoc, updateDoc } from '../controllers/aiController';
+import { authenticateUser, authorizeRoles } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-router.post('/structure-doc',structureDoc as unknown as RequestHandler);
+router.post('/structure-doc', authenticateUser, authorizeRoles('admin'), structureDoc as RequestHandler);
+router.post('/save-doc', authenticateUser, authorizeRoles('admin'), saveDoc as RequestHandler);
+router.get('/user-docs', authenticateUser, authorizeRoles('admin'), getUserDocs as RequestHandler);
+router.get('/doc/:docId', authenticateUser, authorizeRoles('admin'), getDoc as RequestHandler);
+router.put('/doc/:docId', authenticateUser, authorizeRoles('admin'), updateDoc as RequestHandler);
 
-export default router
+export default router;
