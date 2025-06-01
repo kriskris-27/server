@@ -7,9 +7,9 @@ import './config/passport';
 
 import authRoutes from './routes/authRoutes';
 import aiRoutes from './routes/aiRoutes';
+import courseRoutes from './routes/courseRoutes';
 
 dotenv.config();
-
 
 const app = express();
 
@@ -21,10 +21,9 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(passport.initialize());
 
-
-app.use('/api/auth',authRoutes)
+app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
-
+app.use('/api/courses', courseRoutes);
 
 app.get("/", (req,res)=>{
  res.send("Learning platform API is livee")
