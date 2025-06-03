@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "clean": "rimraf dist",
+    "clean": "npx rimraf dist",
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.json",
     "start": "node --experimental-specifier-resolution=node dist/index.js",
