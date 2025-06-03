@@ -39,14 +39,15 @@ export const login = async (req: Request, res: Response) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-        const token = generateToken({ id: user._id, role: user.role }, '7d'); // Match cookie expiration
+        const token = generateToken({ id: user._id, role: user.role }, '7d');
 
-        // Set cookie and send response
+        // Updated cookie settings for cross-origin requests
         res.cookie("accessToken", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+            secure: true,  // Must be true for HTTPS
+            sameSite: 'none',  // Required for cross-origin requests
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            domain: '.onrender.com'  // Allow cookie to work across subdomains
         });
 
         res.status(200).json({
@@ -64,19 +65,20 @@ export const login = async (req: Request, res: Response) => {
     return;
 };
 
-export const logout = async(req:Request , res:Response) =>{
-    try{
-        res.clearCookie("accessToken",{
-            httpOnly:true,
-            secure:process.env.NODE_ENV === "production",
-            sameSite:process.env.NODE_ENV ==="production" ? "none" : "lax"
-        })
+export const logout = async(req: Request, res: Response) => {
+    try {
+        res.clearCookie("accessToken", {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            domain: '.onrender.com'
+        });
 
-        return res.status(200).json({message : "Logged out successfully"})
-    }catch(err){
-        return res.status(500).json({message:"Logout failed"})
+        return res.status(200).json({ message: "Logged out successfully" });
+    } catch (err) {
+        return res.status(500).json({ message: "Logout failed" });
     }
-}
+};
 
 export const getMe = async (req: Request, res: Response): Promise<void> => {
   try {
