@@ -41,14 +41,12 @@ export const login = async (req: Request, res: Response) => {
 
         const token = generateToken({ id: user._id, role: user.role }, '7d');
 
-        // Updated cookie settings for cross-origin requests
+        // Set cookie and send response
         res.cookie("accessToken", token, {
             httpOnly: true,
-            secure: true,  // Must be true for HTTPS
-            sameSite: 'none',  // Required for cross-origin requests
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-            // Don't set domain in production to allow both domains to work
-            domain: process.env.NODE_ENV === 'development' ? 'localhost' : undefined
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
         res.status(200).json({
@@ -70,9 +68,8 @@ export const logout = async(req: Request, res: Response) => {
     try {
         res.clearCookie("accessToken", {
             httpOnly: true,
-            secure: true,
-            sameSite: 'none',
-            domain: process.env.NODE_ENV === 'development' ? 'localhost' : undefined
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
         });
 
         return res.status(200).json({ message: "Logged out successfully" });
