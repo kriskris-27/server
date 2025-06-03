@@ -14,11 +14,17 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: ['https://thesisdoc.vercel.app', 'http://localhost:3000'],
+  origin: [
+    'https://thesisdoc.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:3000'
+  ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['set-cookie']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  exposedHeaders: ['set-cookie', 'Authorization']
 }));
 app.use(cookieParser())
 app.use(express.json())

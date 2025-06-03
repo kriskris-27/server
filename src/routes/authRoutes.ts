@@ -21,12 +21,13 @@ router.get('/google/callback',
         const user = req.user as any;
         const token = generateToken({id:user._id,role:user.role});
 
-        // Set the token as a cookie
+        // Updated cookie settings to match login
         res.cookie('accessToken', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+            secure: true,
+            sameSite: 'none',
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            domain: '.onrender.com'
         });
 
         res.redirect('https://thesisdoc.vercel.app/oauth-success');
