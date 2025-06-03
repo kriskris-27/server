@@ -1,7 +1,6 @@
-import { Request,Response,NextFunction } from "express";
-import  jwt  from "jsonwebtoken";
+import type { Request, Response, NextFunction, RequestHandler } from "express";
+import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import { RequestHandler } from "express";
 
 const JWT_SECRET =  process.env.JWT_SECRET!;
 

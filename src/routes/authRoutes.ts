@@ -1,4 +1,5 @@
-import  express, { RequestHandler }  from 'express';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import passport from 'passport';
 import { signup, login, getMe, logout } from '../controllers/authController.js';
 import { generateToken } from '../utils/jwt.js';

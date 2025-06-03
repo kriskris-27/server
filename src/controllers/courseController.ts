@@ -1,5 +1,5 @@
-import { Response } from 'express';
-import { AuthRequest } from '../middleware/authMiddleware.js';
+import type { Response } from 'express';
+import type { AuthRequest } from '../middleware/authMiddleware.js';
 import StructuredDoc from '../models/StructuredDoc.js';
 
 // Get all available courses for students
@@ -64,6 +64,7 @@ export const getCourse = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };
 
 // Get course progress (to be implemented when we add progress tracking)
@@ -101,4 +102,5 @@ export const getCourseProgress = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };

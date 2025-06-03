@@ -1,4 +1,5 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import { structureDoc, saveDoc, getUserDocs, getDoc, updateDoc } from '../controllers/aiController.js';
 import { authenticateUser, authorizeRoles } from '../middleware/authMiddleware.js';
 

@@ -1,8 +1,8 @@
 // src/controllers/aiController.ts
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { callAimLapi } from '../utils/aiml.js';
 import StructuredDoc from '../models/StructuredDoc.js';
-import { AuthRequest } from '../middleware/authMiddleware.js';
+import type { AuthRequest } from '../middleware/authMiddleware.js';
 
 export const structureDoc = async (req: AuthRequest, res: Response) => {
     const { rawText } = req.body;
@@ -63,6 +63,7 @@ export const structureDoc = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };
 
 export const saveDoc = async (req: AuthRequest, res: Response) => {
@@ -108,6 +109,7 @@ export const saveDoc = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };
 
 // Add new endpoint to get all documents for a user
@@ -140,6 +142,7 @@ export const getUserDocs = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };
 
 // Add new endpoint to get a single document
@@ -178,6 +181,7 @@ export const getDoc = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };
 
 // Add new endpoint to update a document
@@ -231,4 +235,5 @@ export const updateDoc = async (req: AuthRequest, res: Response) => {
             timestamp: new Date().toISOString()
         });
     }
+    return;
 };

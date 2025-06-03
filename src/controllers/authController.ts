@@ -1,4 +1,4 @@
-import { Request,Response } from "express";
+import type { Request, Response } from "express";
 import bcrypt from 'bcryptjs'
 import User from '../models/User.js';
 import { generateToken } from "../utils/jwt.js";
@@ -27,6 +27,7 @@ export const signup = async(req:Request , res:Response)=>{
     }catch(err){
         res.status(500).json({message:'Server error (X sign up)'});
     }
+    return;
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -60,6 +61,7 @@ export const login = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(500).json({ message: 'Server error X login' });
     }
+    return;
 };
 
 export const logout = async(req:Request , res:Response) =>{
