@@ -1,8 +1,8 @@
 import  express, { RequestHandler }  from 'express';
 import passport from 'passport';
-import { signup,login, getMe, logout } from '../controllers/authController';
-import { generateToken } from '../utils/jwt';
-import { authenticateUser } from '../middleware/authMiddleware';
+import { signup, login, getMe, logout } from '../controllers/authController.js';
+import { generateToken } from '../utils/jwt.js';
+import { authenticateUser } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

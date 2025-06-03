@@ -1,6 +1,6 @@
- import { Response } from 'express';
-import { AuthRequest } from '../middleware/authMiddleware';
-import StructuredDoc from '../models/StructuredDoc';
+import { Response } from 'express';
+import { AuthRequest } from '../middleware/authMiddleware.js';
+import StructuredDoc from '../models/StructuredDoc.js';
 
 // Get all available courses for students
 export const getAvailableCourses = async (req: AuthRequest, res: Response) => {

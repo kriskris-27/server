@@ -1,7 +1,7 @@
 import { Request,Response } from "express";
 import bcrypt from 'bcryptjs'
-import User from '../models/User';
-import { generateToken } from "../utils/jwt";
+import User from '../models/User.js';
+import { generateToken } from "../utils/jwt.js";
 
 const SALT_ROUNDS=10;
 

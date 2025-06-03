@@ -1,8 +1,8 @@
 // src/controllers/aiController.ts
 import { Request, Response } from 'express';
-import { callAimLapi } from '../utils/aiml';
-import StructuredDoc from '../models/StructuredDoc';
-import { AuthRequest } from '../middleware/authMiddleware';
+import { callAimLapi } from '../utils/aiml.js';
+import StructuredDoc from '../models/StructuredDoc.js';
+import { AuthRequest } from '../middleware/authMiddleware.js';
 
 export const structureDoc = async (req: AuthRequest, res: Response) => {
     const { rawText } = req.body;

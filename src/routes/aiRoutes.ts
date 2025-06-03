@@ -1,6 +1,6 @@
 import express, { RequestHandler } from 'express';
-import { structureDoc, saveDoc, getUserDocs, getDoc, updateDoc } from '../controllers/aiController';
-import { authenticateUser, authorizeRoles } from '../middleware/authMiddleware';
+import { structureDoc, saveDoc, getUserDocs, getDoc, updateDoc } from '../controllers/aiController.js';
+import { authenticateUser, authorizeRoles } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

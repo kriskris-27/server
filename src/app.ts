@@ -3,11 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import './config/passport';
+import './config/passport.js';
 
-import authRoutes from './routes/authRoutes';
-import aiRoutes from './routes/aiRoutes';
-import courseRoutes from './routes/courseRoutes';
+import authRoutes from './routes/authRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
+import courseRoutes from './routes/courseRoutes.js';
 
 dotenv.config();
 
