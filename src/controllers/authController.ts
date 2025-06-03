@@ -27,7 +27,6 @@ export const signup = async(req:Request , res:Response)=>{
     }catch(err){
         res.status(500).json({message:'Server error (X sign up)'});
     }
-    return;
 };
 
 export const login = async (req: Request, res: Response) => {
@@ -45,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
         res.cookie("accessToken", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+            sameSite: 'lax',
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
@@ -61,22 +60,21 @@ export const login = async (req: Request, res: Response) => {
     } catch (err) {
         res.status(500).json({ message: 'Server error X login' });
     }
-    return;
 };
 
-export const logout = async(req: Request, res: Response) => {
-    try {
-        res.clearCookie("accessToken", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-        });
+export const logout = async(req:Request , res:Response) =>{
+    try{
+        res.clearCookie("accessToken",{
+            httpOnly:true,
+            secure:process.env.NODE_ENV === "production",
+            sameSite:process.env.NODE_ENV ==="production" ? "none" : "lax"
+        })
 
-        return res.status(200).json({ message: "Logged out successfully" });
-    } catch (err) {
-        return res.status(500).json({ message: "Logout failed" });
+        return res.status(200).json({message : "Logged out successfully"})
+    }catch(err){
+        return res.status(500).json({message:"Logout failed"})
     }
-};
+}
 
 export const getMe = async (req: Request, res: Response): Promise<void> => {
   try {
