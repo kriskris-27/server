@@ -18,7 +18,7 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
         sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000
     });
-    res.redirect('http://localhost:5173/oauth-success');
+    res.redirect('https://thesisdoc.vercel.app/oauth-success');
 });
 export default router;
 //# sourceMappingURL=authRoutes.js.map

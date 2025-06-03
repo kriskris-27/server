@@ -29,7 +29,7 @@ router.get('/google/callback',
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         });
 
-        res.redirect('http://localhost:5173/oauth-success');
+        res.redirect('https://thesisdoc.vercel.app/oauth-success');
     }
 );
 

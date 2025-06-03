@@ -10,7 +10,7 @@ import courseRoutes from './routes/courseRoutes.js';
 dotenv.config();
 const app = express();
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://thesisdoc.vercel.app/',
     credentials: true,
 }));
 app.use(cookieParser());
