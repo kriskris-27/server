@@ -5,11 +5,14 @@ import { generateToken } from "../utils/jwt.js";
 
 const SALT_ROUNDS=10;
 
-export const signup = async(req:Request , res:Response)=>{
+export const signup = async(req:Request , res:Response): Promise<void> => {
     const {name,email,password} = req.body;
     try{
         const existingUser=await User.findOne({email});
-        if(existingUser) return res.status(400).json({message:'User already exist try loggin'});
+        if(existingUser) {
+            res.status(400).json({message:'User already exist try loggin'});
+            return;
+        }
         
         const hashedpass=await bcrypt.hash(password,SALT_ROUNDS);
         
@@ -22,21 +25,29 @@ export const signup = async(req:Request , res:Response)=>{
 
         await user.save();
         const token=generateToken({id:user._id,role:user.role});
-        res.status(201).json({token,user:{id:user._id,name:user.name,email:user.email,role:user.role}})
+        res.status(201).json({token,user:{id:user._id,name:user.name,email:user.email,role:user.role}});
+        return;
 
     }catch(err){
         res.status(500).json({message:'Server error (X sign up)'});
+        return;
     }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email });
-        if (!user || !user.password) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!user || !user.password) {
+            res.status(400).json({ message: 'Invalid credentials' });
+            return;
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+        if (!isMatch) {
+            res.status(400).json({ message: 'Invalid credentials' });
+            return;
+        }
 
         const token = generateToken({ id: user._id, role: user.role }, '7d');
 
@@ -57,8 +68,10 @@ export const login = async (req: Request, res: Response) => {
                 role: user.role,
             }
         });
+        return;
     } catch (err) {
         res.status(500).json({ message: 'Server error X login' });
+        return;
     }
 };
 
