@@ -47,7 +47,8 @@ export const login = async (req: Request, res: Response) => {
             secure: true,  // Must be true for HTTPS
             sameSite: 'none',  // Required for cross-origin requests
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-            domain: '.onrender.com'  // Allow cookie to work across subdomains
+            // Don't set domain in production to allow both domains to work
+            domain: process.env.NODE_ENV === 'development' ? 'localhost' : undefined
         });
 
         res.status(200).json({
@@ -71,7 +72,7 @@ export const logout = async(req: Request, res: Response) => {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
-            domain: '.onrender.com'
+            domain: process.env.NODE_ENV === 'development' ? 'localhost' : undefined
         });
 
         return res.status(200).json({ message: "Logged out successfully" });

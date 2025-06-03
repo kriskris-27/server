@@ -23,8 +23,17 @@ app.use(cors({
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  exposedHeaders: ['set-cookie', 'Authorization']
+  allowedHeaders: [
+    'Content-Type', 
+    'Authorization', 
+    'X-Requested-With', 
+    'Accept',
+    'Origin',
+    'Access-Control-Allow-Credentials'
+  ],
+  exposedHeaders: ['set-cookie', 'Authorization', 'Access-Control-Allow-Credentials'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 app.use(cookieParser())
 app.use(express.json())
